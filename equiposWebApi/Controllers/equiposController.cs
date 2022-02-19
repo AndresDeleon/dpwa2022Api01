@@ -21,11 +21,15 @@ namespace equiposWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/equipos")]
-        public IActionResult Get()
+        [Route("api/equipos/{idUsuario}")]
+        public IActionResult Get(int idUsuario)
         {
             IEnumerable<equipos> equiposList = from e in _contexto.equipos
+                                               where e.id_equipos == idUsuario
                                                select e;
+
+            IEnumerable<equipos> equiposListado = _contexto.equipos;
+
             if (equiposList.Count() > 0)
             {
                 return Ok(equiposList);
